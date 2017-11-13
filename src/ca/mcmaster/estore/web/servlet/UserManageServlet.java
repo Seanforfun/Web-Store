@@ -30,16 +30,24 @@ public class UserManageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String type = request.getParameter("type");
-
 		if (type.equals("verify")) {
 			verify(request, response);
 		} else if (type.equals("register")) {
 			try {
+				String checkcode = request.getParameter("verify");
+				String _checkcode = (String) request.getSession()
+						.getAttribute("verify");
+				request.getSession().removeAttribute("verify");
+				if (!checkcode.equals(_checkcode)) {
+					request.setAttribute("register.message", "Incorrect checkcode!");
+					request.getRequestDispatcher("/register.jsp").forward(request,
+							response);
+					return;
+				}
 				boolean ret = register(request, response);
-				// response.setHeader("refresh", "3;URL=home.jsp");
 				if (ret) {
 					response.sendRedirect(request.getContextPath()
-							+ "/register_success.jsp");
+							+ "/to_active.jsp");
 				}
 				return;
 			} catch (UserManageExceptions e) {
@@ -49,8 +57,8 @@ public class UserManageServlet extends HttpServlet {
 						response);
 				return;
 			}
-		}else if(type.equals("active")){
-			active(request,response);
+		} else if (type.equals("active")) {
+			active(request, response);
 			response.sendRedirect(request.getContextPath()
 					+ "/register_success.jsp");
 		}
@@ -120,9 +128,9 @@ public class UserManageServlet extends HttpServlet {
 			throw new UserManageExceptions("Register Failed:" + e.getMessage());
 		}
 	}
-	
+
 	protected void active(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException{
+			HttpServletResponse response) throws ServletException, IOException {
 		String activeCode = request.getParameter("activeCode");
 		UserManageService service = UserManageServiceFactory.newInstance();
 		service.activeUser(activeCode);

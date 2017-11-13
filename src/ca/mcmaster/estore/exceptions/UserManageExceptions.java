@@ -1,6 +1,6 @@
 package ca.mcmaster.estore.exceptions;
 
-public class UserManageExceptions extends Exception {
+public class UserManageExceptions extends RuntimeException {
 
 	public UserManageExceptions() {
 		super();

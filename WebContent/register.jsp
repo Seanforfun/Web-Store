@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${requestScope["register.message"] }<br>
+	<font color="red">${requestScope["register.message"] }</font><br>
 	<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 	<form
 		action="${pageContext.request.contextPath }/usermanage?type=register"

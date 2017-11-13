@@ -22,12 +22,7 @@ public class UserManageServiceImpl implements UserManageService {
 			dao.registerUser(u);
 			MailUtils.sendActiveEmail(u);
 		} catch (SQLException | MessagingException e) {
-			try {
-				throw new UserManageExceptions("Register failed!"
-						+ e.getMessage());
-			} catch (UserManageExceptions e1) {
-				e1.printStackTrace();
-			}
+				throw new UserManageExceptions("Register failed!"+ e.getMessage());
 		}
 		return;
 	}
@@ -37,22 +32,21 @@ public class UserManageServiceImpl implements UserManageService {
 		UserManageDao dao = new UserManageDao();
 		try {
 			User u = dao.searchUser(code);
-			
-			if(null != u ){
+
+			if (null != u) {
 				long past = u.getUpdatetime().getTime();
 				long current = System.currentTimeMillis();
 				System.out.println(current - past);
-				if((current - past) <= 10*60*1000){
+				if ((current - past) <= 10 * 60 * 1000) {
 					dao.activeUser(code);
+				}else{
+					throw new UserManageExceptions("Activitive e-mail expired!");
 				}
+			}else{
+				throw new UserManageExceptions("User does't exist!");
 			}
 		} catch (SQLException e) {
-			try {
-				throw new UserManageExceptions("Active Failed!"
-						+ e.getMessage());
-			} catch (UserManageExceptions e1) {
-				e1.printStackTrace();
-			}
+			throw new UserManageExceptions("Active Failed!" + e.getMessage());
 		}
 	}
 }

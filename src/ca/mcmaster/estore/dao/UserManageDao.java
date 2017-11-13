@@ -8,13 +8,14 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import ca.mcmaster.estore.domain.User;
 import ca.mcmaster.estore.utils.ActiveCodeUtils;
 import ca.mcmaster.estore.utils.DataSourceUtils;
+import ca.mcmaster.estore.utils.MD5Utils;
 
 public class UserManageDao {
 
 	public void registerUser(User u) throws SQLException {
 		String sql = "insert into users values(null, ?,?,?,?,?,?,?, null)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		runner.update(sql, u.getUsername(), u.getPassword(),u.getNickname(),u.getEmail(),"user",0,u.getActivecode());
+		runner.update(sql, u.getUsername(), MD5Utils.md5(u.getPassword()),u.getNickname(),u.getEmail(),"user",0,u.getActivecode());
 		return;
 	}
 
