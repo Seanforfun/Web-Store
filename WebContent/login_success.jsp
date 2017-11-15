@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Login success</title>
 </head>
 <body>
 	<meta http-equiv="refresh" content="3;url=${pageContext.request.contextPath }/home.jsp">
 	<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 	
-	<h1><font color="red">Resgister success! Jump to <a href="${pageContext.request.contextPath}/home.jsp">home</a> in <span id="spanId">3</span> seconds;</font> </h1>
+	<h1><font color="red"> ${sessionScope.user.username } login success! Jump to <a href="${pageContext.request.contextPath}/home.jsp">home</a> in <span id="spanId">3</span> seconds;</font> </h1>
 </body>
 <script type="text/javascript">
 	var interval;
