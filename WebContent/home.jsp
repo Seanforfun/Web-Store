@@ -596,12 +596,12 @@
 										<div class="art-blockcontent-body">
 											<!-- block-content -->
 											<div>
-												<form method="post" id="loginForm" action="login">
+												<form method="post" id="loginForm" action="${pageContext.request.contextPath }/login">
 													<table>
 														<tr>
 															<td>Username</td>
 															<td><input type="text" value="" name="username"
-																id="username"
+																id="usernameId"
 																style="width: 95px;"><br /></td>
 														</tr>
 														<tr>
@@ -744,7 +744,7 @@
 </body>
 <script type="text/javascript">
 	window.onload = function(){
-		var username = document.getElementById("username");
+		var username = document.getElementById("usernameId");
 		username.value = window.decodeURIComponent("${cookie.remember.value}","utf-8");
 	}
 </script>
