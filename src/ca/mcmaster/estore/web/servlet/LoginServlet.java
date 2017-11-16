@@ -44,6 +44,8 @@ public class LoginServlet extends HttpServlet {
 				autoLoginCookie.setMaxAge(24 * 60 * 60);
 				response.addCookie(autoLoginCookie);
 			}
+			HttpSession session = request.getSession();
+			session.setAttribute("userInfo", user);
 			response.sendRedirect(request.getContextPath()
 					+ "/login_success.jsp");
 		} catch (IllegalAccessException | InvocationTargetException e) {

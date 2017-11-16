@@ -14,3 +14,14 @@ CREATE TABLE users(
 	activecode VARCHAR(100),
 	updatetime TIMESTAMP
 );
+
+/*create a table for products*/
+CREATE TABLE products(
+	id VARCHAR(100) PRIMARY KEY,
+	NAME VARCHAR(40),
+	price DOUBLE,
+	category VARCHAR(40),
+	pnum INT,
+	imgurl VARCHAR(100),
+	description VARCHAR(255)
+);
