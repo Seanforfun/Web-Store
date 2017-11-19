@@ -22,6 +22,6 @@ CREATE TABLE products(
 	price DOUBLE,
 	category VARCHAR(40),
 	pnum INT,
-	imgurl VARCHAR(100),
+	imgurl VARCHAR(300),
 	description VARCHAR(255)
 );
