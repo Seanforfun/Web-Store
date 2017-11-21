@@ -9,7 +9,6 @@ public class SaveFiletoLocalUtils {
 		int hash = name.hashCode();
 		int level1 = hash & 0xf;
 		int level2 = hash & 0xf0;
-		ResourceBundle bundle = ResourceBundle.getBundle("Save2Local");
 		return "/" + level1 + "/" + level2;
 	}
 

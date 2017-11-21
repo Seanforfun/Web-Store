@@ -70,4 +70,14 @@
     <servlet-name>ProductsManageServlet</servlet-name>
     <url-pattern>/product</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CartManageServlet</display-name>
+    <servlet-name>CartManageServlet</servlet-name>
+    <servlet-class>ca.mcmaster.estore.web.servlet.CartManageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartManageServlet</servlet-name>
+    <url-pattern>/cartmanage</url-pattern>
+  </servlet-mapping>
 </web-app>

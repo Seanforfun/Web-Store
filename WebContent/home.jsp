@@ -137,21 +137,17 @@
 											<p>
 												<span class="art-button-wrapper"> <span class="l">
 												</span> <span class="r"> </span> <a class="art-button"
-													href="javascript:void(0)">More products...</a>
+													href="${pageContext.request.contextPath}/product?type=show">More products...</a>
 												</span>
 											
 												<span class="art-button-wrapper"> <span class="l">
 												</span> <span class="r"> </span> <a class="art-button"
 													href="${pageContext.request.contextPath }/products/addProducts.jsp">Add products...</a>
+													
 												</span>
+												
 											</p>
-											<div class="cleared"></div>
-											<div class="art-content-layout overview-table">
-												<div class="art-content-layout-row">
-												<!--  -->
-												</div>
-												<!-- end row -->
-											</div>
+											
 											<!-- end table -->
 
 											<!-- /article-content -->
@@ -163,6 +159,8 @@
 								</div>
 							</div>
 						</div>
+						
+						
 						<div class="art-layout-cell art-sidebar1">
 							<div class="art-vmenublock">
 								<div class="art-vmenublock-body">

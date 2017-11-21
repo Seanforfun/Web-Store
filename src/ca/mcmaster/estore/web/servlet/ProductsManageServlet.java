@@ -28,37 +28,56 @@ import ca.mcmaster.estore.utils.PicUtils;
 import ca.mcmaster.estore.utils.SaveFiletoLocalUtils;
 
 public class ProductsManageServlet extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String type = request.getParameter("type");
+		if (type.equals("add")) {
+			this.uploadProduct(request, response);
+		} else if (type.equals("show")) {
+			this.showProducts(request, response);
+		}
+	}
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	private void uploadProduct(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		File repository = new File("F:\\JavaEE_Project\\Estore\\tmp");
-		DiskFileItemFactory factory = new DiskFileItemFactory(1024*10, repository);
+		DiskFileItemFactory factory = new DiskFileItemFactory(1024 * 10,
+				repository);
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		try {
 			List<FileItem> items = upload.parseRequest(request);
 			Products p = new Products();
-			
+
 			Map<String, String[]> map = new HashMap<String, String[]>();
-			for(FileItem item : items){
-				if(!item.isFormField()){
+			for (FileItem item : items) {
+				if (!item.isFormField()) {
 					String fileName = item.getName();
-					String randomName = SaveFiletoLocalUtils.getRandomName(fileName);
+					String randomName = SaveFiletoLocalUtils
+							.getRandomName(fileName);
 					String path = SaveFiletoLocalUtils.getSavePath(randomName);
-					File savePath = new File(this.getServletContext().getRealPath("/upload" + path));
-					if(!savePath.exists()){
+					File savePath = new File("F:\\JavaEE_Project\\Estore\\WebContent" + "/upload", path);
+					if (!savePath.exists()) {
 						savePath.mkdirs();
 					}
-					
+
 					File dest = new File(savePath, randomName);
 					IOUtils.copy(item.getInputStream(), new FileOutputStream(dest));
 					item.delete();
 					PicUtils picUtils = new PicUtils(dest.getCanonicalPath());
 					picUtils.resize(200, 200);
-					map.put("imgurl", new String[]{dest.toString()});
-				}else{
-					map.put(item.getFieldName(), new String[]{item.getString("utf-8")});
+					map.put("imgurl", new String[] { "file:///" + dest.toString().replace("\\", "/") });
+				} else {
+					map.put(item.getFieldName(),
+							new String[] { item.getString("utf-8") });
 				}
 			}
 			String productId = UUID.randomUUID().toString();
-			map.put("id", new String[]{productId});
+			map.put("id", new String[] { productId });
 			try {
 				BeanUtils.populate(p, map);
 				ProductManageFactory pmFactory = new ProductManageFactory();
@@ -71,9 +90,14 @@ public class ProductsManageServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+	
+	private void showProducts(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException{
+		ProductManageFactory factory = new ProductManageFactory();
+		ProductManageService service = factory.newInstance();
+		List<Products> products = service.findAllProducts();
+		request.setAttribute("products", products);
+		request.getRequestDispatcher("/products/showProducts.jsp").forward(request, response);
 	}
 
 }

@@ -50,4 +50,12 @@ public class Products {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	@Override
+	public String toString() {
+		return "Products [id=" + id + ", name=" + name + ", price=" + price
+				+ ", category=" + category + ", pnum=" + pnum + ", imgurl="
+				+ imgurl + ", description=" + description + "]";
+	}
+	
+	
 }

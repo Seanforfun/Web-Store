@@ -8,7 +8,7 @@
 </head>
 <body>
 	<link rel="stylesheet" href="../style.css" type="text/css" media="screen" />
-	<form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath }/product">
+	<form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath }/product?type=add">
 		<table align="center">
 			<caption>
 				<h2>
